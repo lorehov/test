@@ -1,5 +1,6 @@
 package ru.yandex.vyakushev.vyakushev;
 
+import android.app.Activity;
 import android.os.Handler;
 
 import com.google.gson.Gson;
@@ -32,7 +33,6 @@ public class MainPresenter {
         if (mainView == null) {
             return;
         }
-
         mainView.viewProgress();
 
         OkHttpClient client = MainApp.getInstance().getClient();
@@ -56,7 +56,7 @@ public class MainPresenter {
                                 return;
                             }
 
-                            List<ListData> result = new ArrayList<ListData>();
+                            final List<ListData> result = new ArrayList<ListData>();
                             for (ApiData.Body body : data.getBodies()) {
                                 if (body != null) {
                                     result.add(new ListData(body.getValue(), body.getTitle(), body.getAddValues()));
@@ -64,13 +64,18 @@ public class MainPresenter {
                             }
 
 
-                            MainView mainView = mainViewRef.get();
+                            final MainView mainView = mainViewRef.get();
                             if (mainView == null) {
                                 return;
                             }
 
-                            mainView.setListData(result);
-                            mainView.hideProgress();
+                            ((Activity) mainView).runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mainView.setListData(result);
+                                    mainView.hideProgress();
+                                }
+                            });
                         }
                     });
                 }
