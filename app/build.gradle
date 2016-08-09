@@ -11,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField("String", "API_URL", "http://yitv.herokuapp.com")
+        buildConfigField("String", "API_URL", '\"http://yitv.herokuapp.com\"')
     }
     buildTypes {
         release {

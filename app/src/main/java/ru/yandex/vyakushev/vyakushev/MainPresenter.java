@@ -55,7 +55,9 @@ public class MainPresenter {
 
                             List<ListData> result = new ArrayList<ListData>();
                             for (ApiData.Body body : data.getBodies()) {
-                                result.add(new ListData(body.getValue(), body.getTitle(), body.getAddValues()));
+                                if (body != null) {
+                                    result.add(new ListData(body.getValue(), body.getTitle(), body.getAddValues()));
+                                }
                             }
 
 
