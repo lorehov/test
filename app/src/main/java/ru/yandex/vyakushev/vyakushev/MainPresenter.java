@@ -40,7 +40,10 @@ public class MainPresenter {
             .enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
+                    MainView mainView = mainViewRef.get();
+                    if (mainView != null) {
+                        mainView.viewError(e.getMessage());
+                    }
                 }
 
                 @Override

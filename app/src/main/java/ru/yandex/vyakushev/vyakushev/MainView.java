@@ -9,4 +9,5 @@ interface MainView {
     void viewProgress();
     void hideProgress();
     void setListData(List<ListData> data);
+    void viewError(String message);
 }
